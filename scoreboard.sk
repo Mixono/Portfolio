@@ -1,0 +1,14 @@
+on join:
+    while player is online:
+        set title of player's scoreboard to "&b&lꜱᴇʀᴠᴇʀ ɴᴀᴍᴇ"
+        set line 14 of player's scoreboard to "&8&m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
+        set line 13 of player's scoreboard to "&b&lᴘʟᴀʏᴇʀ"
+        set line 12 of player's scoreboard to "&3&l| &7ʀᴀɴᴋ: &b%player's prefix%"
+        set line 11 of player's scoreboard to "&3&l| &7ɴᴀᴍᴇ: &b%player%"
+        set line 8 of player's scoreboard to "&1"
+        set line 7 of player's scoreboard to "&b&lꜱᴇʀᴠᴇʀ"
+        set line 5 of player's scoreboard to "&3&l| &7ᴛᴘꜱ: &b%tps from last minute%"
+        set line 3 of player's scoreboard to "&3&l| &7ᴏɴʟɪɴᴇ: &8[&6%number of players%&8/&6%max player count%&8]"
+        set line 2 of player's scoreboard to "&8&m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
+        set line 1 of player's scoreboard to "&3server.minehut.gg"
+        wait 20 tick 
