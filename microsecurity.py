@@ -6,6 +6,8 @@ import json
 import datetime
 import os
 
+# Not Completed btw
+
 micro = interactions.Client("MTA3ODg3ODcyOTQ1MjkyOTA1NQ.GMxEm_.9Zog-kt0qXADg9zxF8-PI_8mno_weqqkTgT9aA",
     presence=interactions.ClientPresence(
         status=interactions.StatusType.ONLINE,
