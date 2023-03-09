@@ -1,0 +1,32 @@
+options:
+ p: <##A2FF00>&lᴠᴇʀɪꜰʏ &8•<##00FF5D>
+
+on join:
+	check(player)
+		
+command verify <text>:
+	usage: {@p} &cCorrect usage: &a/verify <code>
+	trigger:
+		success(arg-1, player)
+		
+			
+function check(p: player):
+	if {verified.%{_p}%} isn't set:
+		set {verification.code.%{_p}%} to random integer from 1000 to 9999
+		apply blindness 10 to {_p} for 1000 days
+		apply slowness 500 to {_p} for 1000 days
+		message "{@p} Gain access to this server by running &a/verify %{verification.code.%{_p}%}% <##00FF5D>to verify your account! Time left: &c30s" to {_p}
+		wait 30 seconds
+		if {verified.%{_p}%} is true:
+			stop
+		else:
+			kick {_p} due to "{@p} Took to long to verify! Rejoin to try again"
+		
+function success(t: text, p: player):
+	if {_t} is "%{verification.code.%{_p}%}%":
+		set {verified.%{_p}%} to true
+		message "{@p} Successfully verified your account! You have gained access to this server. Enjoy!" to {_p}
+		play sound "entity.experience_orb.pickup" with volume 0.5 to {_p}
+		remove blindness from {_p}
+		remove slowness from {_p}
+		delete {verification.code.%{_p}%}

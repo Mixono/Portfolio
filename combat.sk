@@ -1,0 +1,75 @@
+on damage of a player:
+	attacker is a player
+
+  if attacker's gamemode is creative:
+    stop
+
+  {combat.immune.%victim's uuid%} is not 1:
+    {combat.time.%victim's uuid%} is not set:
+      send action bar "<##FF3333>&lᴄᴏᴍʙᴀᴛ &8• &cYou are now in &ccombat!" to victim
+    set {combat.time.%victim's uuid%} to 12
+    set {combat.combatant.%victim's uuid%} to "%attacker%"
+  {combat.immune.%attacker's uuid%} is not 1:
+    {combat.time.%attacker's uuid%} is not set:
+      send action bar "&cYou are now in combat!" to attacker
+    set {combat.time.%attacker's uuid%} to 15
+    set {combat.combatant.%attacker's uuid%} to "%victim%"
+	
+every 1 second:
+  loop all players where [{combat.time.%player input's uuid%} exists]:
+    {combat.time.%loop-player's uuid%} is less than 0.1:
+      send action bar "<##FF3333>&lᴄᴏᴍʙᴀᴛ &8• &aYou are no longer in combat." to loop-player
+      delete {combat.time.%loop-player's uuid%}
+      delete {combat.combatant.%loop-player's uuid%}
+    {combat.time.%loop-player's uuid%} is greater than 0:
+      loop-player is not sprinting:
+        send action bar "<##FF3333>&lᴄᴏᴍʙᴀᴛ &8• &cYou are in combat for %{combat.time.%loop-player's uuid%}% &cseconds" to loop-player
+        subtract 1 from {combat.time.%loop-player's uuid%}
+      loop-player is sprinting:
+        send action bar "<##FF3333>&lᴄᴏᴍʙᴀᴛ &8• &cCombat timer frozen while sprinting." to loop-player
+        
+on command:
+  {combat.time.%player's uuid%} is set
+
+  if command is "sc" or "report":
+    stop
+
+  if player does not have the permission "combat.immune" or "staff.cmds":
+    send "<##FF3333>&lᴄᴏᴍʙᴀᴛ &8• &cYou can't execute commands in combat!" to player
+    cancel event
+    stop
+
+on region enter:
+  if "%event-region%" contains "spawn":
+    delete {combat.time.%player's uuid%}
+    delete {combat.combatant.%player's uuid%}
+
+on quit:
+  delete {combat.combatant.%player's uuid%}
+  {combat.time.%player's uuid%} exists:
+    delete {combat.time.%player's uuid%}
+    remove all totems of undying from player's inventory
+    kill player
+    broadcast "&7[&c☠&7] &c%player%&7 logged out while in combat"
+on death of a player:
+  wait 1 tick
+  {combat.time.%victim's uuid%} exists:
+    set {combat.time.%victim's uuid%} to 0
+    
+command /actimmune:
+  permission: combat.immune
+  permission message: <##FF3333>&lᴄᴏᴍʙᴀᴛ &8• &cAdministrative Access Denied
+  trigger:
+    {combat.immune.%player's uuid%} exists:
+      delete {combat.immune.%player's uuid%}
+      send "<##FF3333>&lᴄᴏᴍʙᴀᴛ &8• &cYou are no longer immune to combat tag." to player
+      stop
+    {combat.immune.%player's uuid%} is not set:
+      set {combat.immune.%player's uuid%} to 1
+      send "<##FF3333>&lᴄᴏᴍʙᴀᴛ &8• &aYou are now immune to combat tag." to player
+      delete {combat.time.%player's uuid%}
+      delete {combat.combatant.%player's uuid%}
+
+on stop:
+	loop all players:
+		delete {combat.time.%loop-player's uuid%}

@@ -1,0 +1,48 @@
+command /addop <offlineplayer>:
+    trigger:
+        if command sender is console:
+            add "%arg-1%" to {oplist::*}
+            send "ꜱᴇᴄᴜʀɪᴛʏ • Added %player% to Operator List"
+
+command /deleteop <offlineplayer>:
+    trigger:
+        if command sender is console:
+            remove "%arg-1%" from {oplist::*}
+            send "ꜱᴇᴄᴜʀɪᴛʏ • Removed %player% from Operator List"
+
+on join:
+	player has permission "op":
+		{oplist::*} does not contain player's name:
+			alert(player)
+			log "Unauthorized operator, %player%, has tried joining." to "security-reports/security.logs"
+
+on break:
+	player has permission "op":
+		{oplist::*} does not contain player's name:
+			alert(player)
+			cancel event
+			log "Unauthorized operator, %player%, has tried breaking a block." to "security-reports/security.logs"
+
+on place:
+	player has permission "op":
+		{oplist::*} does not contain player's name:
+			alert(player)
+			cancel event
+			log "Unauthorized operator, %player%, has tried placing a block." to "security-reports/security.logs"
+
+on drop:
+	player has permission "op":
+		{oplist::*} does not contain player's name:
+			alert(player)
+			cancel event
+			log "Unauthorized operator, %player%, has tried dropping an item." to "security-reports/security.logs"
+
+on command:
+	player has permission "op":
+		{oplist::*} does not contain player's name:
+			alert(player)
+			cancel event
+			log "Unauthorized operator, %player%, has tried running a command." to "security-reports/security.logs"
+			
+function alert(p: player):
+    send "<##33FFDA>&lꜱᴇᴄᴜʀɪᴛʏ • &bUnauthorized operator, &3%{_p}%&b attempted an action" to all players where [input has permission "op"]
