@@ -1,0 +1,41 @@
+command /rules:
+    trigger:
+        rules(player)
+
+function rules(p: player):
+    set metadata tag "rules" of {_p} to chest inventory with 3 rows named "&eRules menu"
+    set slot 10 of metadata tag "rules" of {_p} to book named "&eRule 1" with lore "&aRule 1"
+    set slot 11 of metadata tag "rules" of {_p} to book named "&eRule 2" with lore "&aRule 2"
+    set slot 12 of metadata tag "rules" of {_p} to book named "&eRule 3" with lore "&aRule 3"
+    set slot 13 of metadata tag "rules" of {_p} to book named "&eRule 4" with lore "&aRule 4"
+    set slot 14 of metadata tag "rules" of {_p} to book named "&eRule 5" with lore "&aRule 5"
+    set slot 15 of metadata tag "rules" of {_p} to book named "&eRule 6" with lore "&aRule 6"
+    set slot 16 of metadata tag "rules" of {_p} to book named "&eRule 7" with lore "&aRule 7"
+    set slot 20 of metadata tag "rules" of {_p} to book named "&eRule 8" with lore "&aRule 8"
+    set slot 21 of metadata tag "rules" of {_p} to book named "&eRule 9" with lore "&aRule 9"
+    set slot 22 of metadata tag "rules" of {_p} to book named "&eRule 10" with lore "&aRule 10"
+    set slot 23 of metadata tag "rules" of {_p} to book named "&eRule 11" with lore "&aRule 11"
+    set slot 24 of metadata tag "rules" of {_p} to book named "&eRule 12" with lore "&aRule 12"
+    rulesslots({_p})
+    open (metadata tag "rules" of {_p}) to {_p}
+    
+function rulesslots(p: player):
+    set slot 0 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 1 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 2 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 3 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 4 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 5 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 6 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 7 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 8 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 9 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 17 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 18 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 19 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 25 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    set slot 26 of metadata tag "rules" of {_p} to black stained glass pane named " "
+    
+on inventory click:
+    if event-inventory = (metadata tag "rules" of player):
+        cancel event
